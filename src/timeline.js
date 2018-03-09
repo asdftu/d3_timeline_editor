@@ -1,17 +1,40 @@
 var d3 = require('d3');
 var hPadding = 15;
 var vPadding = 10;
+var timeFilter = function (start, end, step) {
+    var total = end - start;
+    var interval = Math.floor(total/step);
+    var floor = function (d) {
+        console.log(typeof d);
+        var t = Math.floor((+d - start) / interval) * interval + start;
+        d.setTime(t);
+    };
+    var offset = function (date, step) {
+        date.setTime(+date + step * interval);
+    };
+    return d3.timeInterval(floor, offset);
+};
+/*
+* d3.timeMinute.filter(function (d) {
+    return d.getMinutes() % 15 === 0;
+  })
+* */
 var w = 1000,
   h = 50,
-  x = d3.scaleTime().range([0, w]).domain([new Date(2000, 0, 1, 0), new Date(2000, 0, 1, 2)]),
-  xAxis1 = d3.axisBottom(x).ticks(d3.timeMinute.filter(function (d) {
-    return d.getMinutes() % 15 === 0;
-  })).tickSize(-h).tickPadding(6).tickFormat(d3.timeFormat("%H:%M")),
-  xAxis2 = d3.axisBottom(x).ticks(d3.timeMinute.filter(function (d) {
-    return d.getMinutes() % 3 === 0 && d.getMinutes() % 15 !== 0;
-  })).tickSize(-h/3).tickPadding(6).tickFormat(d3.timeFormat(""));
+  x = d3.scaleTime().range([0, w]).domain([Date.now() - 2*3600*1000, Date.now() + 2*3600*1000]),
+  xAxis1 = d3.axisBottom(x).ticks(timeFilter(Date.now() - 2*3600*1000, Date.now() + 2*3600*1000, 15)).tickSize(-h).tickPadding(6).tickFormat(d3.timeFormat("%H:%M:%S")),
+  xAxis2 = d3.axisBottom(x).ticks(timeFilter(Date.now() - 2*3600*1000, Date.now() + 2*3600*1000, 150)).tickSize(-h/3).tickPadding(6).tickFormat(d3.timeFormat(""));
 var yAxisCall = d3.axisLeft(d3.scaleLinear()).tickSize(0).tickFormat('');
 
+var timeFilter = function (start, end, step) {
+  var total = end - start;
+  var interval = Math.floor(total/step);
+    return function (d) {
+        var t = Math.floor((d - start) / interval) * interval + start;
+        var formatTime = d3.timeFormat("%H:%M:%S");
+        return formatTime(new Date(t));
+    }
+};
 
 var svg = d3.select("svg")
   .attr("width", w + 4 * hPadding)
@@ -36,8 +59,6 @@ svg.append("g")
   .transition()
   .call(yAxisCall);
 
-
-var zoom = d3.zoom().scaleExtent([0.2,8]);
 d3.select("#btn").on('click', function () {
   var newX = d3.zoomIdentity.translate(-w/2,0).scale(2).rescaleX(x);
   xAxis1.scale(newX);
@@ -48,22 +69,6 @@ d3.select("#btn").on('click', function () {
   //d3.select(".x_axis").call(zoom.transform, d3.zoomIdentity.translate(-500, 0).scale(2));
 });
 
-// var zoom = d3.zoom()
-//   .on("zoom", function () {
-//
-//   });
-//
-// setTimeout(function () {
-// }, 5000);
-//
-// d3.select(".x_axis").call(zoom.transform, transform);
-// function transform() {
-//   console.log('transform called');
-//   d3.zoomIdentity
-//     .translate(500, 50)
-//     .scale(8)
-//     .translate(-100, -10);
-// }
 
 var data = [
   {name: "Locke", number: 4},
@@ -73,6 +78,7 @@ var data = [
   {name: "Shephard", number: 31},
   {name: "Kwon", number: 34}
 ];
+
 d3.selectAll("div")
   .data(data, function(d) {
     return d ? d.name : this.id;

@@ -20,6 +20,8 @@ function axis(axesContainer, scale, config, tickConfig) {
 
   axis('long', scale);
   axis('short', scale);
+
+  d3.selectAll('.timeline-x-axis.long text').attr("transform", `translate(${config.labelOffsetX},${-config.labelOffsetY})`);
 }
 
 export default axis;
