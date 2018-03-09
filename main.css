@@ -1,0 +1,17 @@
+svg {
+  font-size: 10px;
+}
+
+g {
+  overflow: visible;
+}
+
+text {
+  z-index: 20;
+}
+
+rect.pane {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}

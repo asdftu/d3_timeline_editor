@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<div id="container">
+  <svg width="960" height="500"></svg>
+</div>
+
+<input type="range" min="0.23333334" max="168" step="0.1" style="
+    width: 1000px;
+">
+
+<div id="Ford"></div>
+<div id="Jarrah"></div>
+<div id="Kwon"></div>
+<div id="Locke"></div>
+<div id="Reyes"></div>
+<div id="Shephard"></div>
+
+<button id="btn">click me</button>
+<script src="dist/timeline.js"></script>
+<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+<script>
+
+
+  /*
+  var w = 500,
+    h = 300,
+    x = d3.scaleTime().range([0, w]).domain([new Date(1999, 0, 1), new Date(2014, 0, 0)]),
+    xAxis = d3.axisBottom(x).tickSize(-h, 0).tickPadding(6).tickArguments([20]);
+
+  var svg = d3.select("svg")
+    .attr("width", w)
+    .attr("height", h+50);
+  svg.append("svg:g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + h + ")")
+    .call(xAxis);
+    */
+  /*
+    var svg = d3.select("svg"),
+      margin = {top: 250, right: 40, bottom: 250, left: 40},
+      width = svg.attr("width") - margin.left - margin.right,
+      height = svg.attr("height") - margin.top - margin.bottom;
+
+    d3.json("https://unpkg.com/d3-time-format@2/locale/ru-RU.json", function(error, locale) {
+      if (error) throw error;
+
+      d3.timeFormatDefaultLocale(locale);
+
+      var x = d3.scaleTime()
+        .domain([new Date(2000, 0, 1), new Date(2001, 0, 1)])
+        .range([0, width]);
+
+      svg.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .call(d3.axisBottom(x));
+
+      x = d3.scaleTime()
+        .domain([new Date(2001, 0, 1), new Date(2002, 0, 1)])
+        .range([0, width]);
+
+      setTimeout(function(){
+        svg.append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+          .call(d3.axisBottom(x));
+      }, 1000);
+
+    });
+    */
+</script>

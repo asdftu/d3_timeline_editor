@@ -1,0 +1,17 @@
+{
+  "name": "timeline",
+  "version": "0.0.1",
+  "dependencies": {
+    "d3": "^4.13.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  },
+  "scripts": {
+    "test": "karma start test/karma/karma.conf.js --single-run",
+    "build": "webpack -p --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --devtool source-map",
+    "start": "webpack-dev-server"
+  }
+}
